@@ -64,7 +64,7 @@ def ListaCzlonkow():
         print('Lista członków stowarzyszenia: ')
         print(open('lista_czlonkow.txt').read())
     except FileNotFoundError:
-        print('nie znaleziono takiego pliku badz niepoprawna sciezka')
+        print('taki plik nie istnieje badz niepoprawna sciezka')
 
 
 def DodawanieCzlonkow():
@@ -101,7 +101,6 @@ def DodawanieCzlonkow():
             lista_czlonkow.close()
             print('Dodano:\n' + imie_czlonka, nazwisko_czlonka + '\nRok urodzenia:', rok_urodzenia, 'Wiek:', wiek)
 
-# Procedura dodająca członków stowarzyszenia do pliku lista_czlonków.txt i wyświetlająca dane każdego dodanego członka
 def EdycjaCzlonkow():
     ListaCzlonkow()
     nr_wiesza_do_edycji = SprawdzenieLiczby('\nPodaj nr wiersza do edycji: ',
@@ -151,8 +150,3 @@ Wybierz polecenie: ''', \
 
 # Koniec
 input('Aby zakończyć naciśnij klawisz ENTER.')
-
-
-# modul standardowy pythona potrzebny do wykonania zadania, dodac zeby
-# indeks bazy danych przy dodawaniu recordu poprawnie ikrementowal licznik
-# czyli import linecache, pobranie danego wiersza
