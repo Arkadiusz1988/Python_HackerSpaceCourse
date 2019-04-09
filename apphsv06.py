@@ -60,9 +60,12 @@ def SprawdzenieLiczby(tekst_zachety, komunikat_bledu, dolna_granica, gorna_grani
 # ******** PROCEDURY ********
 # Procedura wyświetlająca listę członków stowarzyszenia
 def ListaCzlonkow():
-    # lista_czlonkow = open('lista_czlonkow.txt').read()
-    print('Lista członków stowarzyszenia: ')
-    print(open('lista_czlonkow.txt').read())
+    try:
+        print('Lista członków stowarzyszenia: ')
+        print(open('lista_czlonkow.txt').read())
+    except FileNotFoundError:
+        print('nie znaleziono takiego pliku badz niepoprawna sciezka')
+
 
 def DodawanieCzlonkow():
     ilosc_dodawanych_czlonkow = SprawdzenieLiczby('Podaj ilu członków dodajesz do listy: ',
@@ -100,8 +103,7 @@ def DodawanieCzlonkow():
 
 # Procedura dodająca członków stowarzyszenia do pliku lista_czlonków.txt i wyświetlająca dane każdego dodanego członka
 def EdycjaCzlonkow():
-    print('Lista członków stowarzyszenia: ')
-    print(open('lista_czlonkow.txt').read())
+    ListaCzlonkow()
     nr_wiesza_do_edycji = SprawdzenieLiczby('\nPodaj nr wiersza do edycji: ',
 
                                                 'To nie jest poprawny nr wiersza.\nWprowadź liczbę od 1 do 10.', 1, 10)
@@ -123,8 +125,7 @@ def EdycjaCzlonkow():
     edytowanyStr = str(edytowany)+'\n'
     tmp = linecache.getline('lista_czlonkow.txt', nr_wiesza_do_edycji)
     replace('lista_czlonkow.txt', tmp, edytowanyStr)
-    print('Lista członków stowarzyszenia: ')
-    print(open('lista_czlonkow.txt').read())
+    ListaCzlonkow()
 
 # ******** GŁÓWNY PROGRAM ********
 # Pobranie aktualnej daty i czasu
