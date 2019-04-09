@@ -64,7 +64,6 @@ def ListaCzlonkow():
     print('Lista członków stowarzyszenia: ')
     print(open('lista_czlonkow.txt').read())
 
-# Procedura dodająca członków stowarzyszenia do pliku lista_czlonków.txt i wyświetlająca dane każdego dodanego członka
 def DodawanieCzlonkow():
     ilosc_dodawanych_czlonkow = SprawdzenieLiczby('Podaj ilu członków dodajesz do listy: ',
 
