@@ -7,8 +7,8 @@
 # import sqlite3
 # import sqlite3
 #
-# import MySQLdb as mysql1
 import linecache
+
 
 from tempfile import mkstemp
 from shutil import move
