@@ -9,13 +9,16 @@
 import linecache
 import MySQLdb as mysql
 
-moja_baza = mysql.connect(
-    host = "localhost",
-    user = "root",
-    passwd = "coderslab",
-    database ="pytNowa"
-)
-wskaznik = moja_baza.cursor()
+try:
+    moja_baza = mysql.connect(
+        host = "localhost",
+        user = "root",
+        passwd = "coderslab",
+        database ="pytNowa"
+    )
+    wskaznik = moja_baza.cursor()
+except (mysql.Error, mysql.Warning) as e:
+    print(e)
 # wskaznik.execute("CREATE TABLE lista_czlonkow (id INT AUTO_INCREMENT PRIMARY KEY, imie VARCHAR(255), nazwisko VARCHAR(255), wiek int )")
 
 
@@ -68,10 +71,13 @@ def kasowanie():
     print("podaj id wiersza do usuniecia?")
     usunWiersz=input()
     # moja_baza.cursor().execute("DELETE FROM `pytNowa`.`lista_czlonkow` WHERE `id` = ",usunWiersz)
-    query = "DELETE FROM `pytNowa`.`lista_czlonkow` WHERE id = %s"
-    moja_baza.cursor().execute(query, usunWiersz)
-    moja_baza.commit()
-    print("delete successfull")
+    try:
+        query = "DELETE FROM `pytNowa`.`lista_czlonkow` WHERE id = %s"
+        moja_baza.cursor().execute(query, usunWiersz)
+        moja_baza.commit()
+        print("delete successfull")
+    except (mysql.Error, mysql.Warning) as e:
+        print(e)
 
 # ******** PROCEDURY ********
 # Procedura wyświetlająca listę członków stowarzyszenia
@@ -102,9 +108,12 @@ def DodawanieCzlonkow():
                                         'Musisz podać rok pomiędzy 1880 a obecnym.', 1880, teraz.year)
 
         wiek1 = teraz.year - rok_urodzenia
-        moja_baza.cursor().execute("INSERT INTO `pytNowa`.`lista_czlonkow` VALUES (%s,%s,%s,%s)", (0,imie_czlonka, nazwisko_czlonka,wiek1))
-        moja_baza.commit()
-        print("add successfull")
+        try:
+            moja_baza.cursor().execute("INSERT INTO `pytNowa`.`lista_czlonkow` VALUES (%s,%s,%s,%s)", (0,imie_czlonka, nazwisko_czlonka,wiek1))
+            moja_baza.commit()
+            print("add successfull")
+        except (mysql.Error, mysql.Warning) as e:
+            print(e)
 
 def EdycjaCzlonkow():
     ListaCzlonkow()
@@ -124,10 +133,12 @@ def EdycjaCzlonkow():
     rok_urodzenia = SprawdzenieLiczby('Podaj rok urodzenia: ', \
 
                                         'Musisz podać rok pomiędzy 1880 a obecnym.', 1880, teraz.year)
-
-    moja_baza.cursor().execute("update lista_czlonkow set imie=%s, nazwisko=%s, wiek=%s where id=%s", (imie_czlonka, nazwisko_czlonka, rok_urodzenia, nr_wiesza_do_edycji))
-    moja_baza.commit()
-    print("udpate successfull")
+    try:
+        moja_baza.cursor().execute("update lista_czlonkow set imie=%s, nazwisko=%s, wiek=%s where id=%s", (imie_czlonka, nazwisko_czlonka, rok_urodzenia, nr_wiesza_do_edycji))
+        moja_baza.commit()
+        print("udpate successfull")
+    except (mysql.Error, mysql.Warning) as e:
+        print(e)
 
 # ******** GŁÓWNY PROGRAM ********
 # Pobranie aktualnej daty i czasu
